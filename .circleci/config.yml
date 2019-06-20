@@ -15,5 +15,4 @@ jobs:
           name: dir
           command: |
              ls
-             cd test
              bash wel.sh
