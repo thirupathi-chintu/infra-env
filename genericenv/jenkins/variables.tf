@@ -1,7 +1,6 @@
 
-variable "ENV" {
-  default = "jenkins"
-}
+variable "ENV" {}
+
 variable "key_pair" {
   default = {
     key_name = "jenkins1"
@@ -15,12 +14,6 @@ variable "key_pair" {
 # Make sure this file has it's permissions set to 600 for all copies.
 # Overrides details here: https://www.terraform.io/docs/configuration/override.html
 # Without any of the following, Terraform will prompt for them.
-
-variable "aws_region" {
-  description = "AWS region to launch server(s)."
-  # Availability zone.
-  default     = "eu-west-1"
-}
 
 
 

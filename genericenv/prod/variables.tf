@@ -1,7 +1,6 @@
 
-variable "ENV" {
-  default = "prod"
-}
+variable "ENV" {}
+
 variable "key_pair" {
   default = {
     key_name = "prod"
@@ -16,11 +15,6 @@ variable "key_pair" {
 # Overrides details here: https://www.terraform.io/docs/configuration/override.html
 # Without any of the following, Terraform will prompt for them.
 
-variable "aws_region" {
-  description = "AWS region to launch server(s)."
-  # Availability zone.
-  default     = "eu-west-1"
-}
 
 
 

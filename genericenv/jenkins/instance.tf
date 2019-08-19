@@ -1,5 +1,5 @@
-resource "aws_security_group" "access-jenkins" {
- name = "access-jenkins"
+resource "aws_security_group" "access-jenkins1" {
+ name = "access-jenkins1"
  description = "allow ssh access"
  vpc_id = "${module.vpc.vpc-id}"
  tags {
@@ -9,7 +9,7 @@ resource "aws_security_group" "access-jenkins" {
 }
 
 # Todo: For multiple containers, will need to interate on:
-resource "aws_instance" "jenkins" {
+resource "aws_instance" "jenkins1" {
   ami           = "ami-06358f49b5839867c"
   instance_type = "${var.aws_instance_type}"
   iam_instance_profile = "${module.iam.iam_instance_profile}" 
@@ -21,19 +21,19 @@ resource "aws_instance" "jenkins" {
     Name         = "instance-${var.ENV}"
     Environmnent = "${var.ENV}"
   }
-  vpc_security_group_ids = ["${aws_security_group.access-jenkins.id}"]
-  # security_groups = ["${aws_security_group.access-jenkins.id}"]
-  # security_groups = [ "access-jenkins" ]
+  vpc_security_group_ids = ["${aws_security_group.access-jenkins1.id}"]
+  # security_groups = ["${aws_security_group.access-jenkins1.id}"]
+  # security_groups = [ "access-jenkins1" ]
   
 
   # Copy publick key to instance.
-  key_name = "${aws_key_pair.jenkins.key_name}"
+  key_name = "${aws_key_pair.jenkins1.key_name}"
   
   connection {
     type = "ssh"
     user = "ubuntu"
     port = 22
-    host = "${aws_instance.jenkins.public_ip}"
+    host = "${aws_instance.jenkins1.public_ip}"
     private_key = "${file("${var.key_pair["private_key_file_path"]}")}"    
     timeout = "3m"
     agent = false
@@ -48,10 +48,10 @@ resource "aws_instance" "jenkins" {
 }
 
 # Output the security group Id to be used to add rules.
-output "jenkins_security_group" {
-  value = "${aws_security_group.access-jenkins.id}"
+output "jenkins1_security_group" {
+  value = "${aws_security_group.access-jenkins1.id}"
 }
 
-output "jenkins_aws_instance" {
-  value = "${aws_instance.jenkins.public_ip}"
+output "jenkins1_aws_instance" {
+  value = "${aws_instance.jenkins1.public_ip}"
 }

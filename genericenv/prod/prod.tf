@@ -1,14 +1,7 @@
 
-provider "aws" {
-  region     =  "${var.aws_region}"
-  access_key = "${var.access_key}"
-  secret_key = "${var.secret_key}"
-}
-
-
 module "iam" {
   source = "../../modules/iam"
-  ENV = "prod"
+  ENV = "${var.ENV}"
   role = "${var.role}"
   policy = "${var.policy}"
 }
@@ -22,9 +15,9 @@ module "security_rules" {
 
 module "vpc" {
   source = "../../modules/vpc"
-  ENV = "prod"
-  subcidr = "10.0.1.0/24"
-  azs = "eu-west-1a"
+  ENV = "${var.ENV}"
+  subcidr = "10.0.103.0/24"
+  azs = "eu-west-1c"
   cidr = "10.0.0.0/16"
 }
 
